@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -114,7 +114,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Добавить</string>
+       <string>Додати</string>
       </property>
      </widget>
      <widget class="QPushButton" name="removeButton_3">
@@ -127,7 +127,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Удалить</string>
+       <string>Видалити</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_2">
@@ -178,7 +178,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Добавить</string>
+       <string>Додати</string>
       </property>
      </widget>
      <widget class="QPushButton" name="removeButton_4">
@@ -191,7 +191,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Удалить</string>
+       <string>Видалити</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_3">
@@ -288,7 +288,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Добавить</string>
+       <string>Додати</string>
       </property>
      </widget>
      <widget class="QPushButton" name="removeButton_2">
@@ -301,7 +301,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Удалить</string>
+       <string>Видалити</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_6">
@@ -371,6 +371,34 @@
         <width>141</width>
         <height>31</height>
        </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>Системнi повiдомлення</string>
+     </attribute>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>871</width>
+        <height>481</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>510</y>
+        <width>131</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Зберегти у файл</string>
       </property>
      </widget>
     </widget>

@@ -4,6 +4,9 @@
 #include <QChar>
 #include <QString>
 #include <QModelIndex>
+#include <QFileDialog>
+#include <QFile>
+#include <QTextStream>
 #include "dialog.h"
 
 #include "windows.h"
@@ -47,7 +50,7 @@ void MainWindow::on_connectButton_released()
       }
 
     if(true==DBConnectionState)
-       {
+       {         
          ui->statusString->setText("Подключение выполнено !!!");
          Typemodel = new typemodel(this,db);
          ui->tableView->setModel(Typemodel);
@@ -75,6 +78,7 @@ void MainWindow::on_connectButton_released()
     else
     {
       ui->statusString->setText("Подключение не выполнено."+db.lastError().text());
+      ui->textEdit->append("Подключение не выполнено."+db.lastError().text());
     }
 
 }
@@ -92,7 +96,7 @@ void MainWindow::on_addButton_released()
     query.prepare("INSERT INTO  pc_detail_type (pc_detail_type) VALUES(?)");
     query.addBindValue(ui->lineEdit->text());
     if (!query.exec()) {
-      ui->statusString->setText("Добавление в таблицу 'pc_detail_type' не выполнено"+db.lastError().text());
+      ui->textEdit->append("Добавление в таблицу 'pc_detail_type' не выполнено"+db.lastError().text());
     };
     Typemodel->select();
 }
@@ -103,7 +107,7 @@ void MainWindow::on_addButton_2_released()
     query.prepare("INSERT INTO  manufacture (manufacture_name) VALUES(?)");
     query.addBindValue(ui->lineEdit_2->text());
     if (!query.exec()) {
-      ui->statusString->setText("Добавление в таблицу 'manufacture' не выполнено"+db.lastError().text());
+      ui->textEdit->append("Добавление в таблицу 'manufacture' не выполнено"+db.lastError().text());
     };
     manufa->select();
 }
@@ -116,7 +120,7 @@ void MainWindow::on_addButton_3_released()
     query.addBindValue(ui->lineEdit_4->text());
     query.addBindValue(ui->lineEdit_5->text());
     if (!query.exec()) {
-      ui->statusString->setText("Добавление в таблицу 'pc_detail' не выполнено"+db.lastError().text());
+      ui->textEdit->append("Добавление в таблицу 'pc_detail' не выполнено"+db.lastError().text());
     };
     detmvc->select();
 }
@@ -129,7 +133,7 @@ void MainWindow::on_addButton_4_released()
     query.addBindValue(ui->lineEdit_7->text());
     query.addBindValue(ui->lineEdit_6->text());
     if (!query.exec()) {
-      ui->statusString->setText("Добавление в таблицу 'pc_detail_model' не выполнено"+db.lastError().text());
+      ui->textEdit->append("Добавление в таблицу 'pc_detail_model' не выполнено"+db.lastError().text());
     };
     detmm->select();
 }
@@ -144,7 +148,7 @@ void MainWindow::on_removeButton_released()
         sql=sql.arg(Id);
         QSqlQuery query(db);
         if(!query.exec(sql))
-            ui->statusString->setText("Ошибка удаления"+db.lastError().text());
+        ui->textEdit->append("Ошибка удаления"+db.lastError().text());
         }
         Typemodel->select();
 }
@@ -160,7 +164,7 @@ void MainWindow::on_removeButton_3_released()
         sql=sql.arg(Id);
         QSqlQuery query(db);
         if(!query.exec(sql))
-            ui->statusString->setText("Ошибка удаления"+db.lastError().text());
+             ui->textEdit->append("Ошибка удаления"+db.lastError().text());
         }
         manufa->select();
 }
@@ -175,7 +179,7 @@ void MainWindow::on_removeButton_4_released()
         sql=sql.arg(Id);
         QSqlQuery query(db);
         if(!query.exec(sql))
-            ui->statusString->setText("Ошибка удаления"+db.lastError().text());
+            ui->textEdit->append("Ошибка удаления"+db.lastError().text());
         }
         detmvc->select();
 }
@@ -190,7 +194,25 @@ void MainWindow::on_removeButton_2_released()
         sql=sql.arg(Id);
         QSqlQuery query(db);
         if(!query.exec(sql))
-            ui->statusString->setText("Ошибка удаления"+db.lastError().text());
+            ui->textEdit->append("Ошибка удаления"+db.lastError().text());
         }
         detmm->select();
+}
+
+void MainWindow::on_pushButton_released()
+{
+    QString outfile = QFileDialog::getSaveFileName(this, tr("Save"), "",tr("txt(*.txt)"));
+        if (outfile != "") {
+            QFile file(outfile);
+
+            if (file.open(QIODevice::ReadWrite)) {
+                QTextStream stream(&file);
+                stream << ui->textEdit->toPlainText();
+                file.flush();
+                file.close();
+            }
+            else {
+                ui->statusString->setText("Невозможно сохранить файл");
+            }
+        }
 }
