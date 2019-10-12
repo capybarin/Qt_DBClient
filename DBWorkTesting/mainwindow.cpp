@@ -3,6 +3,7 @@
 #include <QSqlQuery>
 #include <QChar>
 #include <QString>
+#include <QModelIndex>
 #include "dialog.h"
 
 #include "windows.h"
@@ -91,8 +92,9 @@ void MainWindow::on_addButton_released()
     query.prepare("INSERT INTO  pc_detail_type (pc_detail_type) VALUES(?)");
     query.addBindValue(ui->lineEdit->text());
     if (!query.exec()) {
-      ui->statusString->setText("Добавление не выполнено."+db.lastError().text());
+      ui->statusString->setText("Добавление в таблицу 'pc_detail_type' не выполнено"+db.lastError().text());
     };
+    Typemodel->select();
 }
 
 void MainWindow::on_addButton_2_released()
@@ -101,8 +103,9 @@ void MainWindow::on_addButton_2_released()
     query.prepare("INSERT INTO  manufacture (manufacture_name) VALUES(?)");
     query.addBindValue(ui->lineEdit_2->text());
     if (!query.exec()) {
-      ui->statusString->setText("Добавление не выполнено."+db.lastError().text());
+      ui->statusString->setText("Добавление в таблицу 'manufacture' не выполнено"+db.lastError().text());
     };
+    manufa->select();
 }
 
 void MainWindow::on_addButton_3_released()
@@ -113,8 +116,9 @@ void MainWindow::on_addButton_3_released()
     query.addBindValue(ui->lineEdit_4->text());
     query.addBindValue(ui->lineEdit_5->text());
     if (!query.exec()) {
-      ui->statusString->setText("Добавление не выполнено."+db.lastError().text());
+      ui->statusString->setText("Добавление в таблицу 'pc_detail' не выполнено"+db.lastError().text());
     };
+    detmvc->select();
 }
 
 void MainWindow::on_addButton_4_released()
@@ -125,6 +129,68 @@ void MainWindow::on_addButton_4_released()
     query.addBindValue(ui->lineEdit_7->text());
     query.addBindValue(ui->lineEdit_6->text());
     if (!query.exec()) {
-      ui->statusString->setText("Добавление не выполнено."+db.lastError().text());
+      ui->statusString->setText("Добавление в таблицу 'pc_detail_model' не выполнено"+db.lastError().text());
     };
+    detmm->select();
+}
+
+void MainWindow::on_removeButton_released()
+{
+    QModelIndex index=ui->tableView->currentIndex();
+    if(index.isValid()){
+        QSqlRecord record=Typemodel->record(index.row());
+        int Id=record.value(0).toInt();
+        QString sql="DELETE FROM pc_detail_type WHERE pc_detail_type_id=%1;";
+        sql=sql.arg(Id);
+        QSqlQuery query(db);
+        if(!query.exec(sql))
+            ui->statusString->setText("Ошибка удаления"+db.lastError().text());
+        }
+        Typemodel->select();
+}
+
+
+void MainWindow::on_removeButton_3_released()
+{
+    QModelIndex index=ui->secondTableView->currentIndex();
+    if(index.isValid()){
+        QSqlRecord record=manufa->record(index.row());
+        int Id=record.value(0).toInt();
+        QString sql="DELETE FROM manufacture WHERE idmanufacture=%1;";
+        sql=sql.arg(Id);
+        QSqlQuery query(db);
+        if(!query.exec(sql))
+            ui->statusString->setText("Ошибка удаления"+db.lastError().text());
+        }
+        manufa->select();
+}
+
+void MainWindow::on_removeButton_4_released()
+{
+    QModelIndex index=ui->secondTableView_3->currentIndex();
+    if(index.isValid()){
+        QSqlRecord record=detmvc->record(index.row());
+        int Id=record.value(0).toInt();
+        QString sql="DELETE FROM pc_detail WHERE idpc_detail=%1;";
+        sql=sql.arg(Id);
+        QSqlQuery query(db);
+        if(!query.exec(sql))
+            ui->statusString->setText("Ошибка удаления"+db.lastError().text());
+        }
+        detmvc->select();
+}
+
+void MainWindow::on_removeButton_2_released()
+{
+    QModelIndex index=ui->secondTableView_4->currentIndex();
+    if(index.isValid()){
+        QSqlRecord record=detmm->record(index.row());
+        int Id=record.value(0).toInt();
+        QString sql="DELETE FROM pc_detail_model WHERE idpc_detail_model=%1;";
+        sql=sql.arg(Id);
+        QSqlQuery query(db);
+        if(!query.exec(sql))
+            ui->statusString->setText("Ошибка удаления"+db.lastError().text());
+        }
+        detmm->select();
 }

@@ -36,6 +36,14 @@ private slots:
 
     void on_addButton_4_released();
 
+    void on_removeButton_released();
+
+    void on_removeButton_3_released();
+
+    void on_removeButton_4_released();
+
+    void on_removeButton_2_released();
+
 private:
     Ui::MainWindow *ui;
 
