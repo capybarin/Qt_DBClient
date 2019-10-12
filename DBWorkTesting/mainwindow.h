@@ -28,6 +28,14 @@ private slots:
 
     void on_disconectButton_released();
 
+    void on_addButton_released();
+
+    void on_addButton_2_released();
+
+    void on_addButton_3_released();
+
+    void on_addButton_4_released();
+
 private:
     Ui::MainWindow *ui;
 

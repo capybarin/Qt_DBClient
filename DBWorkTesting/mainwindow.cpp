@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QSqlQuery>
+#include <QChar>
+#include <QString>
+#include "dialog.h"
 
 #include "windows.h"
 
@@ -9,7 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     userLogin="root";
     userPassword="qwerty";
     localPortDB=3306;
@@ -72,7 +74,6 @@ void MainWindow::on_connectButton_released()
     else
     {
       ui->statusString->setText("Подключение не выполнено."+db.lastError().text());
-     qDebug()<<"\nDB Error: "<<db.lastError().text();
     }
 
 }
@@ -82,4 +83,48 @@ void MainWindow::on_connectButton_released()
 void MainWindow::on_disconectButton_released()
 {
     db.close();
+}
+
+void MainWindow::on_addButton_released()
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO  pc_detail_type (pc_detail_type) VALUES(?)");
+    query.addBindValue(ui->lineEdit->text());
+    if (!query.exec()) {
+      ui->statusString->setText("Добавление не выполнено."+db.lastError().text());
+    };
+}
+
+void MainWindow::on_addButton_2_released()
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO  manufacture (manufacture_name) VALUES(?)");
+    query.addBindValue(ui->lineEdit_2->text());
+    if (!query.exec()) {
+      ui->statusString->setText("Добавление не выполнено."+db.lastError().text());
+    };
+}
+
+void MainWindow::on_addButton_3_released()
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO  pc_detail (pc_detail_model_id, detail_name, detail_price) VALUES(?,?,?)");
+    query.addBindValue(ui->lineEdit_3->text());
+    query.addBindValue(ui->lineEdit_4->text());
+    query.addBindValue(ui->lineEdit_5->text());
+    if (!query.exec()) {
+      ui->statusString->setText("Добавление не выполнено."+db.lastError().text());
+    };
+}
+
+void MainWindow::on_addButton_4_released()
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO  pc_detail_model (pc_detail_model, manufacture_id, pc_detail_type_id) VALUES(?,?,?)");
+    query.addBindValue(ui->lineEdit_8->text());
+    query.addBindValue(ui->lineEdit_7->text());
+    query.addBindValue(ui->lineEdit_6->text());
+    if (!query.exec()) {
+      ui->statusString->setText("Добавление не выполнено."+db.lastError().text());
+    };
 }
