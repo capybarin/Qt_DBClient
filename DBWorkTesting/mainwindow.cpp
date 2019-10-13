@@ -7,7 +7,6 @@
 #include <QFileDialog>
 #include <QFile>
 #include <QTextStream>
-#include "dialog.h"
 
 #include "windows.h"
 
@@ -97,7 +96,9 @@ void MainWindow::on_addButton_released()
     query.addBindValue(ui->lineEdit->text());
     if (!query.exec()) {
       ui->textEdit->append("Добавление в таблицу 'pc_detail_type' не выполнено"+db.lastError().text());
+      ui->label_9->setText("Добавление в таблицу 'pc_detail_type' не выполнено");
     };
+    ui->label_9->setText("Добавление в таблицу 'pc_detail_type' выполнено");
     Typemodel->select();
 }
 
@@ -108,7 +109,9 @@ void MainWindow::on_addButton_2_released()
     query.addBindValue(ui->lineEdit_2->text());
     if (!query.exec()) {
       ui->textEdit->append("Добавление в таблицу 'manufacture' не выполнено"+db.lastError().text());
+      ui->label_10->setText("Добавление в таблицу 'manufacture' не выполнено");
     };
+    ui->label_10->setText("Добавление в таблицу 'manufacture' выполнено");
     manufa->select();
 }
 
@@ -121,7 +124,9 @@ void MainWindow::on_addButton_3_released()
     query.addBindValue(ui->lineEdit_5->text());
     if (!query.exec()) {
       ui->textEdit->append("Добавление в таблицу 'pc_detail' не выполнено"+db.lastError().text());
+      ui->label_11->setText("Добавление в таблицу 'pc_detail' не выполнено");
     };
+    ui->label_11->setText("Добавление в таблицу 'pc_detail' выполнено");
     detmvc->select();
 }
 
@@ -134,7 +139,9 @@ void MainWindow::on_addButton_4_released()
     query.addBindValue(ui->lineEdit_6->text());
     if (!query.exec()) {
       ui->textEdit->append("Добавление в таблицу 'pc_detail_model' не выполнено"+db.lastError().text());
+      ui->label_12->setText("Добавление в таблицу 'pc_detail_model' не выполнено");
     };
+    ui->label_12->setText("Добавление в таблицу 'pc_detail_model' выполнено");
     detmm->select();
 }
 
@@ -149,6 +156,7 @@ void MainWindow::on_removeButton_released()
         QSqlQuery query(db);
         if(!query.exec(sql))
         ui->textEdit->append("Ошибка удаления"+db.lastError().text());
+        ui->label_9->setText("Ошибка удаления");
         }
         Typemodel->select();
 }
@@ -165,6 +173,7 @@ void MainWindow::on_removeButton_3_released()
         QSqlQuery query(db);
         if(!query.exec(sql))
              ui->textEdit->append("Ошибка удаления"+db.lastError().text());
+             ui->label_10->setText("Ошибка удаления");
         }
         manufa->select();
 }
@@ -180,6 +189,7 @@ void MainWindow::on_removeButton_4_released()
         QSqlQuery query(db);
         if(!query.exec(sql))
             ui->textEdit->append("Ошибка удаления"+db.lastError().text());
+            ui->label_11->setText("Ошибка удаления");
         }
         detmvc->select();
 }
@@ -195,6 +205,7 @@ void MainWindow::on_removeButton_2_released()
         QSqlQuery query(db);
         if(!query.exec(sql))
             ui->textEdit->append("Ошибка удаления"+db.lastError().text());
+            ui->label_12->setText("Ошибка удаления");
         }
         detmm->select();
 }
@@ -210,6 +221,7 @@ void MainWindow::on_pushButton_released()
                 stream << ui->textEdit->toPlainText();
                 file.flush();
                 file.close();
+                ui->label_13->setText("Сохранено!");
             }
             else {
                 ui->statusString->setText("Невозможно сохранить файл");
