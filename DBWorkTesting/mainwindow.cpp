@@ -49,24 +49,23 @@ void MainWindow::on_connectButton_released()
       }
 
     if(true==DBConnectionState)
-       {         
+       {
          ui->statusString->setText("Подключение выполнено !!!");
          Typemodel = new typemodel(this,db);
          ui->tableView->setModel(Typemodel);
-         ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-         //ui->tableView->resizeColumnsToContents();
+         ui->tableView->resizeColumnsToContents();
 
          manufa = new ManufacModel(this,db);
          ui->secondTableView->setModel(manufa);
-         ui->secondTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+         ui->secondTableView->resizeColumnsToContents();
 
          detmvc = new DetailMVCMdel(this,db);
          ui->secondTableView_3->setModel(detmvc);
-         ui->secondTableView_3->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+         ui->secondTableView_3->resizeColumnsToContents();
 
          detmm = new Detail_model_modeil(this,db);
          ui->secondTableView_4->setModel(detmm);
-         ui->secondTableView_4->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+         ui->secondTableView_4->resizeColumnsToContents();
          Typemodel->select();
          manufa->select();
          detmvc->select();
