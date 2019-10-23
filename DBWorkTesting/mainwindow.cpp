@@ -60,10 +60,12 @@ void MainWindow::on_connectButton_released()
          ui->secondTableView->resizeColumnsToContents();
 
          detmvc = new DetailMVCMdel(this,db);
+         ui->secondTableView_3->setItemDelegate(new QSqlRelationalDelegate());
          ui->secondTableView_3->setModel(detmvc);
          ui->secondTableView_3->resizeColumnsToContents();
 
          detmm = new Detail_model_modeil(this,db);
+         ui->secondTableView_4->setItemDelegate(new QSqlRelationalDelegate());
          ui->secondTableView_4->setModel(detmm);
          ui->secondTableView_4->resizeColumnsToContents();
          Typemodel->select();
