@@ -86,8 +86,12 @@ void MainWindow::on_connectButton_released()
 
 
 void MainWindow::on_disconectButton_released()
-{
+{   
     db.close();
+    Typemodel->select();
+    manufa->select();
+    detmvc->select();
+    detmm->select();
 }
 
 void MainWindow::on_addButton_released()
@@ -155,9 +159,9 @@ void MainWindow::on_removeButton_released()
         QString sql="DELETE FROM pc_detail_type WHERE pc_detail_type_id=%1;";
         sql=sql.arg(Id);
         QSqlQuery query(db);
-        if(!query.exec(sql))
+        if(!query.exec(sql)){
         ui->textEdit->append("Ошибка удаления"+db.lastError().text());
-        ui->label_9->setText("Ошибка удаления");
+        ui->label_9->setText("Ошибка удаления");}
         }
         Typemodel->select();
 }
@@ -172,9 +176,9 @@ void MainWindow::on_removeButton_3_released()
         QString sql="DELETE FROM manufacture WHERE idmanufacture=%1;";
         sql=sql.arg(Id);
         QSqlQuery query(db);
-        if(!query.exec(sql))
+        if(!query.exec(sql)){
              ui->textEdit->append("Ошибка удаления"+db.lastError().text());
-             ui->label_10->setText("Ошибка удаления");
+             ui->label_10->setText("Ошибка удаления");}
         }
         manufa->select();
 }
@@ -188,9 +192,9 @@ void MainWindow::on_removeButton_4_released()
         QString sql="DELETE FROM pc_detail WHERE idpc_detail=%1;";
         sql=sql.arg(Id);
         QSqlQuery query(db);
-        if(!query.exec(sql))
+        if(!query.exec(sql)){
             ui->textEdit->append("Ошибка удаления"+db.lastError().text());
-            ui->label_11->setText("Ошибка удаления");
+            ui->label_11->setText("Ошибка удаления");}
         }
         detmvc->select();
 }
@@ -204,9 +208,9 @@ void MainWindow::on_removeButton_2_released()
         QString sql="DELETE FROM pc_detail_model WHERE idpc_detail_model=%1;";
         sql=sql.arg(Id);
         QSqlQuery query(db);
-        if(!query.exec(sql))
+        if(!query.exec(sql)){
             ui->textEdit->append("Ошибка удаления"+db.lastError().text());
-            ui->label_12->setText("Ошибка удаления");
+            ui->label_12->setText("Ошибка удаления");}
         }
         detmm->select();
 }
